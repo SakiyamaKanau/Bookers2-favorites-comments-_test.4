@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%# 新規投稿・投稿更新時　サクセスメッセージ %>
+      <% if flash[:success] %>
+        <%= flash[:success] %>
+      <% end %>
+      <%# プロフィール編集 %>
+       <%= render 'users/user_info' %>
+      <%# 新規投稿 %>
+      <%= render 'books/new_book',book: @new_book %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+        <h2 class="mt-4">Books</h2>
+        <table class="table table-hover table-inverse">
+         <thead>
+          <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Opinion</th>
+            <th colspan="3"></th>
+           </tr>
+          </thead>
+          <% @books.each do |book| %>
+            <tr class="border-top border-bottom">
+              <td class="pt-2 pb-2"><%= link_to attachment_image_tag(book.user, :profile_image, size: "60x60" , fallback: "no_image.jpg"),user_path(book.user) %></td>
+              <td><%=link_to book.title,book_path(book) %></td>
+              <td><%= book.body %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+  </div>
+</div>

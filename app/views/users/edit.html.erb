@@ -1,0 +1,22 @@
+<% if @user.errors.any? %>
+  <%= @user.errors.count %>件のエラーが発生しました
+  <% @user.errors.full_messages.each do |user| %>
+    <%= user %>
+  <% end %>
+<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+      <h4 class="mt-3">User info</h4>
+      <%= form_with model:@user,local:true do |f| %>
+        <p>Name</p>
+        <%= f.text_field :name,class:"w-100" %>
+        <p class="mt-2">image</p>
+        <%= f.attachment_field :profile_image, placeholder: "プロフィール画像" %>
+        <p class="mt-2">introduction</p>
+        <%= f.text_area :introduction,class:"w-100" %>
+        <p class="mt-2"><button><%= f.submit "Update User" %></button></p>
+      <% end %>
+    </div>
+  </div>
+</div>

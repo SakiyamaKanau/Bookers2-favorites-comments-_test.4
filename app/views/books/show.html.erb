@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+   <div class="col-md-3">
+     
+      <!--プロフィール編集-->
+     <h4 class="mt-4">User info</h4>
+      <%= attachment_image_tag @book.user, :profile_image, size: "60x60" , fallback: "no_image.jpg"%>
+       <p class="border-top border-bottom pt-2 pb-2">name<%= @book.user.name %></p>
+      <p>introduction <%= @book.user.introduction %></p>
+      <button class="btn btn-outline-secondary btn-block fas fa-user-cog">
+        <%= link_to edit_user_path(@book.user) do %>
+    　     <i class="fas fa-user-cog text-secondary"></i>
+    　　　<% end %>
+　　　</button>
+　　　 <%# 新規投稿 %>
+      <%= render 'books/new_book',book: @new_book %>
+    </div>
+   <div class="col-md-8 offset-md-1">
+      <%# 投稿詳細 %>
+      <h4 class="border-bottom mt-4">Book detail</h4>
+      <p><%= link_to attachment_image_tag(@user, :profile_image, size: "60x60" , fallback: "no_image.jpg"),user_path(@user.id) %></p>
+      <%= link_to "#{@user.name}",user_path(@user.id) %>
+      <%= link_to "#{@book.title}",books_path(@book) %>
+      <%= @book.body %>
+      <% if @book.user_id == current_user.id %>
+        <button><%= link_to "Edit",edit_book_path(@book) %></button>
+        <button><%= link_to "Destroy",book_path(@book),method: :delete, "data-confirm" => "本当に削除しますか？" %></button>
+      <% end %>
+    </div>
+  </div>
+</div>
