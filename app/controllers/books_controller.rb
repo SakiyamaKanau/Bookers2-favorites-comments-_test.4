@@ -5,7 +5,8 @@ class BooksController < ApplicationController
   def index
     @new_book = Book.new
     @books = Book.all
-    @user = User.find(current_user.id)
+    @user = current_user
+    @favorite = Favorite.new
   end
   
   def create
@@ -26,6 +27,9 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @new_book = Book.new
     @user = User.find_by(id: @book.user_id)
+    @favorite = Favorite.new
+    @comment = BookComment.new
+    @comments = @book.book_comments
   end
 
   def edit
@@ -61,5 +65,4 @@ class BooksController < ApplicationController
   def book_params
     params.require(:book).permit(:title, :body).merge(user_id: current_user.id)
   end
-  
 end
